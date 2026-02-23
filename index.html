@@ -1,0 +1,913 @@
+<!--
+  Arborist YouTube Channel Landing Page
+  Single-file HTML + CSS (no build tools)
+  - Hero with Subscribe button
+  - Top 3 Study Guides section
+  - General Tree Care section (homeowners)
+  - Nature-inspired palette
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Study guides and practical tree care tips from an arborist—learn, grow, and keep your trees thriving." />
+  <title>Arborist Study Guides & Tree Care | YouTube Channel</title>
+
+  <style>
+    /* ----------------------------
+       Nature-inspired design system
+       ---------------------------- */
+    :root{
+      --bg: #0c1511;          /* deep forest */
+      --surface: #0f1f18;     /* evergreen */
+      --surface-2:#12271e;
+      --text: #e9f3ee;        /* soft off-white */
+      --muted: #b8cdc2;
+      --brand: #5bb98a;       /* fern */
+      --brand-2: #c7a65f;     /* warm bark */
+      --accent: #6cc7d9;      /* cool sky */
+      --danger: #ff6b6b;
+      --stroke: rgba(233,243,238,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-lg: 26px;
+
+      --max: 1120px;
+      --pad: clamp(16px, 2vw, 24px);
+      --pad-lg: clamp(22px, 3.4vw, 40px);
+
+      --h1: clamp(2.1rem, 2.6vw + 1rem, 3.5rem);
+      --h2: clamp(1.45rem, 1.2vw + 1rem, 2.2rem);
+      --h3: clamp(1.1rem, .7vw + .9rem, 1.35rem);
+      --p: clamp(1.0rem, .22vw + .95rem, 1.08rem);
+
+      /* motion */
+      --hero-parallax: 0px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 12% 10%, rgba(91,185,138,.22), transparent 55%),
+        radial-gradient(900px 520px at 88% 12%, rgba(108,199,217,.16), transparent 50%),
+        radial-gradient(900px 520px at 50% 100%, rgba(199,166,95,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg), #08110d 70%);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; height:auto; display:block}
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* ----------------------------
+       Header / Nav
+       ---------------------------- */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(12,21,17,.55);
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 18px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 750;
+      letter-spacing: .2px;
+      white-space: nowrap;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width: 56px;
+      height: 56px;
+      border-radius: 0;
+      background: transparent;
+      border: none;
+    }
+
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap: 14px;
+      padding:0;
+      margin:0;
+    }
+    nav a{
+      display:inline-flex;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: .2s ease;
+    }
+    nav a:hover{
+      color: var(--text);
+      border-color: var(--stroke);
+      background: rgba(233,243,238,.04);
+    }
+
+    .nav-cta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+
+    /* ----------------------------
+       Buttons
+       ---------------------------- */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid var(--stroke);
+      background: rgba(233,243,238,.03);
+      color: var(--text);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(91,185,138,.35); background: rgba(233,243,238,.06); }
+
+    .btn-primary{
+      border-color: rgba(91,185,138,.55);
+      background: linear-gradient(135deg, rgba(91,185,138,.95), rgba(46,125,88,.95));
+      box-shadow: 0 18px 45px rgba(91,185,138,.18);
+    }
+    .btn-primary:hover{ border-color: rgba(91,185,138,.85); background: linear-gradient(135deg, rgba(104,201,150,.98), rgba(45,140,95,.98)); }
+
+    .btn-secondary{
+      border-color: rgba(199,166,95,.45);
+      background: rgba(199,166,95,.10);
+    }
+
+    .btn-icon{
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border-radius: 14px;
+    }
+
+    /* ----------------------------
+       Hero
+       ---------------------------- */
+    .hero{
+      padding: clamp(48px, 6vw, 78px) 0 34px;
+      position: relative;
+      overflow:hidden;
+    }
+
+    /* Banner image hero backdrop (edge-to-edge) */
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(12,21,17,.75) 0%, rgba(12,21,17,.35) 45%, rgba(12,21,17,.75) 100%),
+        url('Arborist podcast banner 1.png');
+      background-size: cover;
+      background-position: center;
+      opacity: .75;
+      transform: translateY(var(--hero-parallax)) scale(1.06);
+      will-change: transform;
+      z-index: 0;
+    }
+
+    /* Ensure hero content sits above the backdrop */
+    .hero .container{ position: relative; z-index: 1; }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: clamp(18px, 3vw, 40px);
+      align-items: center;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(233,243,238,.06);
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .92rem;
+    }
+
+    .tagline{
+      margin: 10px 0 0;
+      color: rgba(233,243,238,.86);
+      font-size: clamp(.95rem, .25vw + .9rem, 1.05rem);
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .92;
+    }
+
+    .kicker .dot{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 6px rgba(91,185,138,.18);
+    }
+
+    h1{
+      font-size: var(--h1);
+      line-height: 1.06;
+      margin: 14px 0 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .lead{
+      font-size: var(--p);
+      color: var(--muted);
+      margin: 0 0 22px;
+      max-width: 58ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      align-items:center;
+      margin-top: 10px;
+    }
+
+    .subtext{
+      color: rgba(184,205,194,.9);
+      font-size: .95rem;
+      margin-top: 12px;
+      display:flex;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    .subtext span{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(233,243,238,.03);
+    }
+
+    .hero-card{
+      background: linear-gradient(180deg, rgba(15,31,24,.85), rgba(15,31,24,.55));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-lg);
+      padding: var(--pad-lg);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+
+    .hero-card:before{
+      content:"";
+      position:absolute;
+      inset:-60px -40px auto auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle at 30% 35%, rgba(108,199,217,.35), transparent 62%);
+      filter: blur(1px);
+    }
+
+    .hero-stat{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(233,243,238,.10);
+      background: rgba(8,17,13,.35);
+      margin-bottom: 12px;
+    }
+
+    .hero-stat h3{
+      margin: 0;
+      font-size: 1.02rem;
+      letter-spacing: .2px;
+    }
+
+    .hero-stat p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .pill{
+      font-weight: 750;
+      font-size: .9rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(91,185,138,.35);
+      background: rgba(91,185,138,.12);
+      color: #dff6ea;
+      white-space: nowrap;
+    }
+
+    /* ----------------------------
+       Latest video embed
+       ---------------------------- */
+    .video-wrap{
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(15,31,24,.78), rgba(15,31,24,.55));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .video-grid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 0;
+    }
+
+    .video-embed{
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: rgba(8,17,13,.35);
+    }
+
+    .video-embed iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    .video-side{
+      padding: clamp(16px, 2.2vw, 22px);
+      border-left: 1px solid var(--stroke);
+    }
+
+    .video-side h3{ margin: 0 0 8px; font-size: var(--h3); }
+    .video-side p{ margin: 0 0 14px; color: var(--muted); }
+
+    @media (max-width: 940px){
+      .video-grid{ grid-template-columns: 1fr; }
+      .video-side{ border-left: none; border-top: 1px solid var(--stroke); }
+    }
+
+    /* ----------------------------
+       Sections
+       ---------------------------- */
+    section{
+      padding: 46px 0;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    h2{
+      margin: 0;
+      font-size: var(--h2);
+      letter-spacing: -0.01em;
+    }
+
+    .section-note{
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .grid{
+      display:grid;
+      gap: 14px;
+    }
+
+    .grid-3{
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(15,31,24,.78), rgba(15,31,24,.55));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      transition: transform .15s ease, border-color .2s ease, background .2s ease;
+      position: relative;
+      overflow:hidden;
+      min-height: 168px;
+    }
+
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(108,199,217,.26);
+      background: linear-gradient(180deg, rgba(18,39,30,.80), rgba(15,31,24,.55));
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(233,243,238,.12);
+      background: rgba(233,243,238,.03);
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .88rem;
+    }
+
+    .card h3{
+      margin: 12px 0 8px;
+      font-size: var(--h3);
+      letter-spacing: .1px;
+    }
+
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: .98rem;
+      max-width: 65ch;
+    }
+
+    .card-actions{
+      margin-top: 16px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    .list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .list li{ margin: 8px 0; }
+
+    /* ----------------------------
+       CTA band
+       ---------------------------- */
+    .cta{
+      padding: 46px 0 64px;
+    }
+
+    .cta-inner{
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(233,243,238,.14);
+      background:
+        radial-gradient(800px 240px at 18% 0%, rgba(91,185,138,.22), transparent 60%),
+        radial-gradient(700px 220px at 88% 100%, rgba(199,166,95,.18), transparent 55%),
+        linear-gradient(180deg, rgba(15,31,24,.75), rgba(15,31,24,.52));
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 32px);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .cta-inner h2{ margin: 0 0 6px; }
+    .cta-inner p{ margin: 0; color: var(--muted); max-width: 70ch; }
+
+    /* ----------------------------
+       Footer
+       ---------------------------- */
+    footer{
+      border-top: 1px solid var(--stroke);
+      padding: 22px 0 30px;
+      color: rgba(184,205,194,.85);
+    }
+
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a{
+      color: rgba(184,205,194,.9);
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+    }
+
+    .footer-links a:hover{
+      color: var(--text);
+      border-color: var(--stroke);
+      background: rgba(233,243,238,.03);
+    }
+
+    /* ----------------------------
+       Accessibility & utilities
+       ---------------------------- */
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    :focus-visible{
+      outline: 3px solid rgba(108,199,217,.55);
+      outline-offset: 2px;
+      border-radius: 14px;
+    }
+
+    /* ----------------------------
+       Responsive
+       ---------------------------- */
+    @media (max-width: 940px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-card{ order: 2; }
+    }
+
+    @media (max-width: 760px){
+      nav ul{ display:none; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .cta-inner{ align-items:flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ scroll-behavior:auto !important; transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="nav" role="navigation" aria-label="Primary">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="logo" aria-hidden="true">
+            <!-- Replace logo.png with your actual logo file name -->
+            <img src="Logo no background.png" alt="Arborist Podcast Logo">
+          </span>
+          <span>Arborist Podcast</span>
+        </a>
+
+        <nav aria-label="Site">
+          <ul>
+            <li><a href="#latest">Latest Video</a></li>
+            <li><a href="#guides">Study Guides</a></li>
+            <li><a href="#tree-care">General Tree Care</a></li>
+            <li><a href="#subscribe">Subscribe</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn btn-secondary" href="#guides">Browse Guides</a>
+          <a class="btn btn-primary" href="#subscribe" aria-label="Subscribe to the YouTube channel">
+            <span aria-hidden="true">▶</span>
+            Subscribe
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">
+              <span class="dot" aria-hidden="true"></span>
+              <span>Arborist-led lessons • Field-tested tree care • Study-ready resources</span>
+            </div>
+            <p class="tagline">ISA Certification Study &amp; Tree Care Education</p>
+
+            <h1>Learn tree science, pass your exams, and care for trees with confidence.</h1>
+            <p class="lead">
+              Short, practical videos and clear study guides—built for arborists in training and homeowners who want healthier, safer trees.
+            </p>
+
+            <div class="hero-actions" id="subscribe">
+              <!-- Replace the # with your YouTube URL -->
+              <a class="btn btn-primary" href="http://www.youtube.com/@arboristpodcast" target="_blank" rel="noreferrer">
+                <span aria-hidden="true">▶</span>
+                Subscribe on YouTube
+              </a>
+              <a class="btn" href="#guides">
+                View Top Guides
+              </a>
+            </div>
+
+            <div class="subtext" aria-label="Quick highlights">
+              <span><span aria-hidden="true">🌲</span> ISA-style fundamentals</span>
+              <span><span aria-hidden="true">🪓</span> Pruning & risk basics</span>
+              <span><span aria-hidden="true">🏡</span> Homeowner-friendly tips</span>
+            </div>
+          </div>
+
+          <aside class="hero-card" aria-label="Featured resources">
+            <div class="hero-stat">
+              <div>
+                <h3>Featured Playlist</h3>
+                <p>Start here: Tree Biology → Pruning → Diagnosis</p>
+              </div>
+              <span class="pill">New</span>
+            </div>
+
+            <div class="hero-stat">
+              <div>
+                <h3>Weekly Study Prompt</h3>
+                <p>One concept, one diagram, one quick quiz.</p>
+              </div>
+              <span class="pill" style="border-color: rgba(108,199,217,.45); background: rgba(108,199,217,.10);">Free</span>
+            </div>
+
+            <div class="hero-stat" style="margin-bottom:0;">
+              <div>
+                <h3>Homeowner Checklist</h3>
+                <p>Seasonal care reminders + when to call an arborist.</p>
+              </div>
+              <span class="pill" style="border-color: rgba(199,166,95,.55); background: rgba(199,166,95,.12);">Download</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATEST VIDEO (auto-updating via YouTube uploads feed) -->
+    <section id="latest" aria-label="Latest video">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Latest Video</h2>
+            <p class="section-note">This embed auto-updates as you upload new videos on YouTube.</p>
+          </div>
+          <a class="btn" href="http://www.youtube.com/@arboristpodcast" target="_blank" rel="noreferrer">View Channel</a>
+        </div>
+
+        <div class="video-wrap">
+          <div class="video-grid">
+            <div class="video-embed">
+              <!--
+                Auto-updating option (static-site friendly):
+                1) This usually works if your YouTube "username" is arboristpodcast:
+                   https://www.youtube.com/embed?listType=user_uploads&list=arboristpodcast
+
+                2) If it doesn't load, swap to your channel's Uploads playlist ID (starts with "UU...") like:
+                   https://www.youtube.com/embed?listType=playlist&list=UUxxxxxxxxxxxxxxxxxxxxxx
+              -->
+              <iframe
+                src="https://www.youtube.com/embed?listType=user_uploads&list=arboristpodcast"
+                title="Latest uploads from Arborist Podcast"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <aside class="video-side" aria-label="Latest video details">
+              <div class="tag">🎙️ New Upload</div>
+              <h3 style="margin-top:12px;">Watch the newest lesson</h3>
+              <p>
+                New videos appear here automatically. If you want this panel to show the title + thumbnail,
+                we can wire it up with a lightweight backend (YouTube Data API) so it updates in real time.
+              </p>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="http://www.youtube.com/@arboristpodcast" target="_blank" rel="noreferrer">
+                  <span aria-hidden="true">▶</span>
+                  Go to YouTube
+                </a>
+                <a class="btn" href="#subscribe">Subscribe</a>
+              </div>
+              <p style="margin-top:12px; font-size:.92rem; color: rgba(184,205,194,.9);">
+                Tip: this approach keeps your site fully static (no API keys) and still stays current.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOP 3 STUDY GUIDES -->
+    <section id="guides" aria-label="Top 3 Study Guides">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Top 3 Study Guides</h2>
+            <p class="section-note">Use these as your high-impact starting point. Swap titles and links to match your content.</p>
+          </div>
+          <a class="btn" href="http://www.youtube.com/@arboristpodcast/playlists" target="_blank" rel="noreferrer">All Guides</a>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <div class="tag">🧬 Tree Biology</div>
+            <h3>Tree Risk Assessment</h3>
+            <p>Core terms, quick diagrams, and the “why” behind common best practices.</p>
+            <ul class="list">
+              <li>Cells → tissues → organs</li>
+              <li>Compartmentalization basics</li>
+              <li>Energy, water, and stress</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-secondary" href="https://youtube.com/playlist?list=PLMOIsNP_XETGpiaZ3Fb9qmVvJMa1vlp6Y&si=mMypGOWpQdU1QoHF" target="_blank" rel="noreferrer">Open Playlist</a>
+              <a class="btn" href="https://youtube.com/playlist?list=PLMOIsNP_XETGpiaZ3Fb9qmVvJMa1vlp6Y&si=mMypGOWpQdU1QoHF" target="_blank" rel="noreferrer">Watch Lessons</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="tag">✂️ Pruning</div>
+            <h3>Core Concepts</h3>
+            <p>When to prune, how to choose cuts, and how to avoid common mistakes.</p>
+            <ul class="list">
+              <li>Target pruning & branch collar</li>
+              <li>Structure vs. clearance pruning</li>
+              <li>Reduction vs. thinning</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-secondary" href="https://www.youtube.com/playlist?list=PLMOIsNP_XETG7mSJbmwkAnfBvSRsNTaJe" target="_blank" rel="noreferrer">Open Playlist</a>
+              <a class="btn" href="https://www.youtube.com/playlist?list=PLMOIsNP_XETG7mSJbmwkAnfBvSRsNTaJe" target="_blank" rel="noreferrer">Watch Lessons</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="tag">⚠️ Risk & Safety</div>
+            <h3>Certified Arborist</h3>
+            <p>How to spot red flags, understand likelihood vs. consequence, and know when to call a pro.</p>
+            <ul class="list">
+              <li>Common defects and targets</li>
+              <li>After-storm assessments</li>
+              <li>Documenting concerns</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn btn-secondary" href="https://www.youtube.com/playlist?list=PLMOIsNP_XETGJ1bad_ygHv9hL1CZdAZZD" target="_blank" rel="noreferrer">Open Playlist</a>
+              <a class="btn" href="https://www.youtube.com/playlist?list=PLMOIsNP_XETGJ1bad_ygHv9hL1CZdAZZD" target="_blank" rel="noreferrer">Watch Lessons</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GENERAL TREE CARE -->
+    <section id="tree-care" aria-label="General Tree Care for Homeowners">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>General Tree Care</h2>
+            <p class="section-note">Simple, homeowner-friendly guidance for healthier trees and fewer surprises.</p>
+          </div>
+          <a class="btn" href="http://www.youtube.com/@arboristpodcast/playlists" target="_blank" rel="noreferrer">Care Library</a>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <div class="tag">💧 Watering</div>
+            <h3>Deep watering that actually works</h3>
+            <p>How to water young vs. established trees, plus signs you’re under- or over-watering.</p>
+            <div class="card-actions">
+              <a class="btn" href="#" target="_blank" rel="noreferrer">Watch: Watering</a>
+              <a class="btn btn-secondary" href="#" target="_blank" rel="noreferrer">Checklist</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="tag">🪵 Mulch</div>
+            <h3>Mulch rings, not mulch volcanoes</h3>
+            <p>Best depth, ideal radius, and why keeping mulch off the trunk matters.</p>
+            <div class="card-actions">
+              <a class="btn" href="#" target="_blank" rel="noreferrer">Watch: Mulching</a>
+              <a class="btn btn-secondary" href="#" target="_blank" rel="noreferrer">Do/Don’t</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="tag">🌿 Diagnosis</div>
+            <h3>When leaves look “off”</h3>
+            <p>Common causes: drought, compaction, pests, disease, and nutrient issues—what you can do first.</p>
+            <div class="card-actions">
+              <a class="btn" href="#" target="_blank" rel="noreferrer">Watch: Diagnosis</a>
+              <a class="btn btn-secondary" href="#" target="_blank" rel="noreferrer">Quick Guide</a>
+            </div>
+          </article>
+        </div>
+
+        <div style="margin-top: 14px;" class="grid">
+          <div class="card" style="min-height:auto;">
+            <div class="tag">🏡 Homeowner safety note</div>
+            <h3 style="margin-top:12px;">Know when to call an arborist</h3>
+            <p>
+              If you see large dead limbs, cracking, leaning that’s increasing, uprooted soil, or anything near power lines,
+              it’s time to contact a qualified arborist.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" aria-label="Call to action">
+      <div class="container">
+        <div class="cta-inner">
+          <div>
+            <h2>Subscribe for weekly arborist lessons</h2>
+            <p>Get videos, study prompts, and homeowner tips—organized so you can learn fast and apply it safely.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="http://www.youtube.com/@arboristpodcast" target="_blank" rel="noreferrer">
+              <span aria-hidden="true">▶</span>
+              Subscribe
+            </a>
+            <a class="btn" href="#guides">Start with the Top 3 Guides</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="brand" aria-label="Footer brand">
+          <span class="logo" aria-hidden="true" style="width:30px;height:30px;">
+            <img src="Logo no background.png" alt="Arborist Podcast Logo">
+          </span>
+          <span>© <span id="year"></span> Arborist Podcast</span>
+        </div>
+
+        <div class="footer-links" aria-label="Footer links">
+          <a href="#guides">Study Guides</a>
+          <a href="#tree-care">Tree Care</a>
+          <a href="#subscribe">Subscribe</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Small enhancement: current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Subtle parallax for the hero banner (respects reduced motion)
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        const onScroll = () => {
+          const y = window.scrollY || 0;
+          // Clamp movement so it stays tasteful
+          const px = Math.max(-18, Math.min(18, -(y * 0.03)));
+          document.documentElement.style.setProperty('--hero-parallax', px + 'px');
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    </script>
+  </footer>
+</body>
+</html>
